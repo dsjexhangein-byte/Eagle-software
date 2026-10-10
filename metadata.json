@@ -1,0 +1,6 @@
+{
+  "name": "EaglePay Multi-Brand Payment Platform",
+  "description": "Production-grade multi-brand payment collection and payment link management platform with Eagle Pay gateway adapter, secure signatures, webhooks, and cPanel PHP/MySQL deployment package.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

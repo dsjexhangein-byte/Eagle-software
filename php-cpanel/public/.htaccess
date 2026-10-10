@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteBase /
+
+# 0. Pass Authorization Header to PHP on cPanel / Apache / FastCGI / LiteSpeed
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# 1. Deny direct access to protected source folders
+RewriteRule ^(config|src|cron|database|logs)/ - [F,L]
+
+# 2. Direct access to /install goes to install.php
+RewriteRule ^install/?$ install.php [QSA,L]
+
+# 3. Allow actual files & assets (CSS, JS, images, icons, etc.)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 4. Route all other requests (APIs, public links, SPA dashboard) to index.php
+RewriteRule ^ index.php [QSA,L]
